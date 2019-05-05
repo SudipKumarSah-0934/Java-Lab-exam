@@ -1,103 +1,130 @@
-package Lab;
-import java.awt.*;
-import java.awt.event.ActionEvent;
+package Project;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import javax.swing.*;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.awt.event.ActionEvent;
 
-public class Academic {
-    public static void main(String[] args) {
-        final JFrame frame = new JFrame("IIT");
+public class Academic extends JFrame {
 
-        // Create OK button
-        JButton btnOK = new JButton("For Student");
+	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
 
-        btnOK.addActionListener(new ActionListener(){
-                    public void actionPerformed(ActionEvent e) {
+	/**
+	 * Launch the application.
+	 */
+	
+	/**
+	 * Create the frame.
+	 */
+	public Academic() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblAcademicInfo = new JLabel("Academic Info");
+		lblAcademicInfo.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		lblAcademicInfo.setBounds(220, 11, 133, 30);
+		contentPane.add(lblAcademicInfo);
+		
+		JLabel lblRollNo = new JLabel("Roll no:");
+		lblRollNo.setFont(new Font("Times New Roman", Font.ITALIC, 15));
+		lblRollNo.setBounds(10, 75, 71, 14);
+		contentPane.add(lblRollNo);
+		
+		textField = new JTextField();
+		textField.setBounds(91, 73, 115, 20);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblSession = new JLabel("Session:");
+		lblSession.setFont(new Font("Times New Roman", Font.ITALIC, 15));
+		lblSession.setBounds(10, 100, 71, 27);
+		contentPane.add(lblSession);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(91, 104, 115, 20);
+		contentPane.add(textField_1);
+		textField_1.setColumns(10);
+		
+		JLabel lblRegistrationNumer = new JLabel("Registration number:");
+		lblRegistrationNumer.setFont(new Font("Times New Roman", Font.ITALIC, 15));
+		lblRegistrationNumer.setBounds(10, 132, 133, 20);
+		contentPane.add(lblRegistrationNumer);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(153, 135, 162, 20);
+		contentPane.add(textField_2);
+		textField_2.setColumns(10);
+		
+		JLabel lblHallName = new JLabel("Hall name:");
+		lblHallName.setFont(new Font("Times New Roman", Font.ITALIC, 15));
+		lblHallName.setBounds(10, 163, 71, 14);
+		contentPane.add(lblHallName);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(91, 161, 333, 20);
+		contentPane.add(textField_3);
+		textField_3.setColumns(10);
+		
+		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String roll =textField.getText().toString();
+				String session =textField_1.getText().toString();
+				String registration =textField_2.getText().toString();
+				String hall =textField_3.getText().toString();
+				
+				try {
+					FileWriter wri = new FileWriter("academicINfo.txt",true);
+					wri.write(roll+",");
+					wri.write(session+",");
+					wri.write(registration+",");
+					wri.write(hall+",");
+					wri.write(System.lineSeparator());
+					wri.close();
+					JOptionPane.showMessageDialog(null, "completed");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			}
+		);
+		btnSave.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		btnSave.setBounds(74, 227, 89, 23);
+		contentPane.add(btnSave);
+		
+		JButton btnReset = new JButton("Reset");
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 textField.setText("");
+				 textField_1.setText("");
+				 textField_2.setText("");
+				 textField_3.setText("");
+			}
+		});
+		btnReset.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		btnReset.setBounds(306, 227, 89, 23);
+		contentPane.add(btnReset);
+	}
 
-                        JFrame f=new JFrame("Authentication required");
-                        final JLabel label = new JLabel();
-                        label.setBounds(20,150, 200,50);
-                        final JPasswordField value = new JPasswordField();
-                        value.setBounds(100,75,100,30);
-                        JLabel l1=new JLabel("Username:");
-                        l1.setBounds(20,20, 80,30);
-                        JLabel l2=new JLabel("Password:");
-                        l2.setBounds(20,75, 80,30);
-                        JButton b = new JButton("Login");
-                        b.setBounds(100,120, 80,30);
-                        final JTextField text = new JTextField();
-                        text.setBounds(100,20, 100,30);
-                        f.add(value); f.add(l1); f.add(label); f.add(l2); f.add(b); f.add(text);
-                        f.setSize(300,300);
-                        f.setLayout(null);
-                        f.setVisible(true);
-                        b.addActionListener(new ActionListener() {
-                            public void actionPerformed(ActionEvent e) {
-                                JFrame f=new JFrame("enter personal details");
-                                final JLabel label = new JLabel();
-                                label.setBounds(20,150, 200,50);
-                                final JTextField value = new JTextField();
-                                value.setBounds(100,75,100,30);
-                                JLabel l1=new JLabel("full name:");
-                                l1.setBounds(20,20, 80,30);
-                                JLabel l2=new JLabel("father's name:");
-                                l2.setBounds(20,75, 80,30);
-                                final JLabel label1 = new JLabel();
-                                label1.setBounds(20,290, 200,50);
-                                final JTextField value1 = new JTextField();
-                                value1.setBounds(100,145,100,30);
-                                JLabel l3=new JLabel("address:");
-                                l3.setBounds(20,145, 80,30);
-                                JButton b = new JButton("Login");
-                                b.setBounds(100,200, 80,30);
-                                JTextField text1 = new JTextField();
-                                text1.setBounds(100,20, 100,30);
-
-
-                                f.add(value); f.add(l1);f.add(label); f.add(l2);
-                               f.add(value1);f.add(l3);f.add(label1);f.add(b); f.add(text1);
-                                f.setSize(300,300);
-                                f.setLayout(null);
-                                f.setVisible(true);
-                               // String str = text1.getText();
-
-                                try {
-                                    FileWriter fw = new FileWriter(new File("output.txt"));
-                                    value.write(fw);
-                                    fw.close();
-                                } catch (IOException ex) {
-                                    ex.printStackTrace();
-                                }
-                        }
-                        });
-
-
-                    }
-                });
-
-        // Create Cancel button
-        JButton btnCancel = new JButton("For staff");
-        btnCancel.addActionListener(
-                new ActionListener(){
-                    public void actionPerformed(ActionEvent e) {
-                        JOptionPane.showMessageDialog(frame,
-                                "You need password to update record"
-                        );
-                    }
-                });
-
-        // Add buttons to a panel
-        JPanel buttonPanel = new JPanel( );
-        buttonPanel.add(btnOK);
-        buttonPanel.add(btnCancel);
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 300);
-        frame.getContentPane( ).add(buttonPanel,BorderLayout.SOUTH);
-        frame.setVisible(true);
-
-    }
-    }
+}
